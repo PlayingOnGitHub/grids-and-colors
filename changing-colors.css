@@ -1,0 +1,21 @@
+.grid-item {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+@keyframes animate-through-random-colors {
+    0% {
+        background-color: var(--color-1);
+    }
+
+    100% {
+        background-color: var(--color-2);
+    }
+}
+
+#run-animation {
+    animation-name: animate-through-random-colors;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+}
