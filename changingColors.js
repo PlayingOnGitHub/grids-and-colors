@@ -3,11 +3,6 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function createCircleElement( unique_id, appendToThisParentElement ) {
-    let circle = document.createElement("div");
-        appendToThisParentElement.appendChild(circle);
-}
-
 function createGrid( gridWidthRows, gridHeightColumns, gridName, parentElementId ) {
 
     let grid = document.createElement("div");
