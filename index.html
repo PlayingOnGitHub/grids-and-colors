@@ -12,8 +12,10 @@
     <script type="text/javascript" src="changingColors.js"></script>
     <!-- the bottom script is just here just to show that it works and how fun it is -->
     <script type="text/javascript">
-        createGrid(6, 6, "grid", "add-content-here");
-        for (let i = 0; i < 36; i++ ) {
+        let rows = 30;
+        let columns = 40;
+        createGrid(rows, columns, "grid", "add-content-here");
+        for (let i = 0; i < (rows*columns); i++ ) {
             if ( i % 2 == 1 ) {
                 addRandomColors("grid-item", ""+i, "0.4s", "1.70s");
             }
