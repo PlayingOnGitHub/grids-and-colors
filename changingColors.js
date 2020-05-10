@@ -7,8 +7,8 @@ function createGrid( gridWidthRows, gridHeightColumns, gridName, parentElementId
 
     let grid = document.createElement("div");
 
-        grid.style.gridTemplateRows = "repeat(" + gridWidthRows + ", auto";
-        grid.style.gridTemplateColumns = "repeat(" + gridHeightColumns + ", auto";
+        grid.style.gridTemplateRows = "repeat(" + gridWidthRows + ", minmax(min-content, max-content)";
+        grid.style.gridTemplateColumns = "repeat(" + gridHeightColumns + ", minmax(min-content, max-content)";
 
         grid.style.display = "grid";
         grid.id = gridName;
