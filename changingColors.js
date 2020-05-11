@@ -58,3 +58,56 @@ function addRandomColors(elementClassName, element_node, delay, animationDuratio
         newElement.addEventListener("animationend", () => addRandomColors(elementClassName, element_node, delay, animationDuration), true);
 
 }
+
+function createMulticoloredGrid( thisManyRows, thisManyColumns, gridName, appendToThisParentElement ) {
+    let rows = thisManyRows;
+    let columns = thisManyColumns;
+    let totalSize = thisManyRows * thisManyColumns;
+    createGrid(thisManyRows, thisManyColumns, ""+gridName, appendToThisParentElement);
+    for (let i = 0; i < totalSize; i++ ) {
+        if ( i % 2 == 1 ) {
+            addRandomColors(gridName+"-item", ""+i, "0.4s", "1.70s");
+        }
+        else if (i == 0 ) {
+            addRandomColors(gridName+"-item", ""+i, "0.4s", "1.7s");
+        }
+        else {
+            addRandomColors(gridName+"-item", ""+i, "0.2s", "2s");
+        }
+    }
+}
+
+function askUserForGridSize( usersInputSize, appendGridHere ) {
+
+    let usersInput = usersInputSize;
+        usersInput = usersInput.trim();
+    let usersInputArray = usersInput.split("x");
+    let gridWidthRows = +usersInputArray[0];
+    let gridHeightColumns = +usersInputArray[1];
+
+    if ( !( isNaN( gridWidthRows ) ) && gridWidthRows != 0 && !( isNaN( gridHeightColumns ) ) && gridHeightColumns != 0 && !(usersInputArray[2]) && usersInputArray[2] != 0 ) {
+        createMulticoloredGrid( gridWidthRows, gridHeightColumns, "grid", ""+appendGridHere );
+    }
+    else {
+        getUserInputAndReturnAGrid( appendGridHere );
+    }
+}
+
+function getUserInputAndReturnAGrid( appendToThisParentElement ) {
+    let myDiv = document.getElementById( appendToThisParentElement );
+    let myTextBox = myDiv.appendChild( document.createElement("input") );
+        myTextBox.setAttribute("type", "text");
+        myTextBox.setAttribute("placeholder", "Enter grid size. Example: 10x10");
+        myTextBox.className = "pretty-textbox";
+
+    let mySubmitButton = myDiv.appendChild(document.createElement("button") );
+        mySubmitButton.setAttribute("type", "submit");
+        mySubmitButton.className = "pretty-submit-button";
+        mySubmitButton.innerText = "Submit";
+        mySubmitButton.addEventListener( "click", () => { 
+            let textBoxValue = myTextBox.value;
+            myTextBox.remove();
+            mySubmitButton.remove();
+            askUserForGridSize( textBoxValue, appendToThisParentElement );
+        }, true );
+}
