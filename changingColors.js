@@ -12,6 +12,7 @@ function createGrid( gridWidthRows, gridHeightColumns, gridName, parentElementId
 
         grid.style.display = "grid";
         grid.id = gridName;
+        grid.className = gridName;
 
         let theParent = document.getElementById(parentElementId);
             theParent.appendChild(grid);
@@ -77,16 +78,23 @@ function createMulticoloredGrid( thisManyRows, thisManyColumns, gridName, append
     }
 }
 
-function askUserForGridSize( usersInputSize, appendGridHere ) {
+function checkGridSizeInput( usersInputSize, appendGridHere ) {
 
     let usersInput = usersInputSize;
         usersInput = usersInput.trim();
     let usersInputArray = usersInput.split("x");
     let gridWidthRows = +usersInputArray[0];
     let gridHeightColumns = +usersInputArray[1];
+    let gridSize = 0;
 
     if ( !( isNaN( gridWidthRows ) ) && gridWidthRows != 0 && !( isNaN( gridHeightColumns ) ) && gridHeightColumns != 0 && !(usersInputArray[2]) && usersInputArray[2] != 0 ) {
-        createMulticoloredGrid( gridWidthRows, gridHeightColumns, "grid", ""+appendGridHere );
+        createGrid( gridWidthRows, gridHeightColumns, "grid", ""+appendGridHere );
+        gridSize = gridWidthRows * gridHeightColumns;
+            /* add hover event listeners */
+            for (let i = 0; i < gridSize; i++ ) {
+                let gridItem = document.getElementsByClassName("grid-item")[i];
+                    gridItem.addEventListener("mouseover", addColorToElementWhenHovering, true );
+            }
     }
     else {
         getUserInputAndReturnAGrid( appendGridHere );
@@ -100,6 +108,8 @@ function getUserInputAndReturnAGrid( appendToThisParentElement ) {
         myTextBox.setAttribute("placeholder", "Enter grid size. Example: 10x10");
         myTextBox.className = "pretty-textbox";
 
+    let totalGridSize = 0;
+
     let mySubmitButton = myDiv.appendChild(document.createElement("button") );
         mySubmitButton.setAttribute("type", "submit");
         mySubmitButton.className = "pretty-submit-button";
@@ -108,6 +118,30 @@ function getUserInputAndReturnAGrid( appendToThisParentElement ) {
             let textBoxValue = myTextBox.value;
             myTextBox.remove();
             mySubmitButton.remove();
-            askUserForGridSize( textBoxValue, appendToThisParentElement );
+            totalGridSize = checkGridSizeInput( textBoxValue, appendToThisParentElement );
         }, true );
 }
+
+function addColorToElementWhenHovering() {
+    let gridItem = document.getElementById(this.id);
+    let gridItemId = gridItem.id;
+    let gridItemIdArray = gridItemId.split("-");
+    let element_node = gridItemIdArray[1];
+    if (element_node % 2 == 1 ) {
+        addRandomColors("grid-item", element_node, "0.4s", "1.70s");
+    }
+    else if (element_node == 0 ) {
+        addRandomColors("grid-item", element_node, "0.4s", "1.7s");
+    }
+    else {
+        addRandomColors("grid-item", element_node, "0.2s", "2s");
+    }
+    gridItem.removeEventListener("mouseover", addColorToElementWhenHovering, true );
+}
+
+function projectEtchASketch() {
+    getUserInputAndReturnAGrid( "add-content-here" );
+
+}
+
+projectEtchASketch(); /* run project */
