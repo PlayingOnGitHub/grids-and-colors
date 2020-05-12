@@ -78,6 +78,25 @@ function createMulticoloredGrid( thisManyRows, thisManyColumns, gridName, append
     }
 }
 
+
+function clearButton() {
+    let clearButton = document.createElement("button");
+        clearButton.id = "clear-grid";
+        clearButton.innerText = "Clear Grid";
+        clearButton.class = "clear-button";
+
+    let mainContent = document.getElementById("add-content-here");
+        mainContent.appendChild(clearButton);
+    let newContent = document.createElement("div");
+        newContent.id = "add-content-here";
+    let bodyElement = document.getElementsByTagName("body")[0];
+        clearButton.addEventListener("click", () => { 
+            mainContent.remove();
+            bodyElement.appendChild(newContent);
+            getUserInputAndReturnAGrid( "add-content-here" );
+         }, true )
+}
+
 function checkGridSizeInput( usersInputSize, appendGridHere ) {
 
     let usersInput = usersInputSize;
@@ -95,6 +114,7 @@ function checkGridSizeInput( usersInputSize, appendGridHere ) {
                 let gridItem = document.getElementsByClassName("grid-item")[i];
                     gridItem.addEventListener("mouseover", addColorToElementWhenHovering, true );
             }
+        clearButton();
     }
     else {
         getUserInputAndReturnAGrid( appendGridHere );
